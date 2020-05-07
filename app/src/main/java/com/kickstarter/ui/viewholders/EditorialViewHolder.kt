@@ -18,27 +18,15 @@ class EditorialViewHolder(val view: View, val delegate: Delegate) : KSViewHolder
 
     init {
 
-        this.itemView.setOnClickListener { this.vm.inputs.editorialClicked() }
-
-        this.vm.outputs.ctaTitle()
-                .compose(bindToLifecycle())
-                .compose(Transformers.observeForUI())
-                .subscribe { this.itemView.title.setText(it) }
-
         this.vm.outputs.ctaDescription()
                 .compose(bindToLifecycle())
                 .compose(Transformers.observeForUI())
                 .subscribe { this.itemView.description.setText(it) }
 
-        this.vm.graphic()
+        this.vm.outputs.ctaTitle()
                 .compose(bindToLifecycle())
                 .compose(Transformers.observeForUI())
-                .subscribe { this.itemView.item_background.background = ContextCompat.getDrawable(context(),it) }
-
-        this.vm.outputs.editorial()
-                .compose(bindToLifecycle())
-                .compose(Transformers.observeForUI())
-                .subscribe { delegate.editorialViewHolderClicked(it) }
+                .subscribe { this.itemView.title.setText(it) }
 
         this.vm.outputs.editorial()
                 .compose(bindToLifecycle())
@@ -51,7 +39,6 @@ class EditorialViewHolder(val view: View, val delegate: Delegate) : KSViewHolder
                 .subscribe { this.itemView.editorial_graphic.setImageResource(it) }
 
         this.itemView.setOnClickListener { this.vm.inputs.editorialClicked() }
-
     }
 
     override fun bindData(data: Any?) {
